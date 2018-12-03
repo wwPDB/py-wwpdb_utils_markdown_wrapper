@@ -33,7 +33,7 @@ import traceback
 from graphviz import Source
 from bs4 import BeautifulSoup
 #
-
+import markdown.extensions.codehilite
 
 def parse_metadata(source_text):
     """ Parse Meta-Data and separate from the original text.
@@ -218,9 +218,11 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
         text_div = '<div class="controls" style="float: right"><a href="%s">View Original Text</a></div>' % text_href
         source_text = unicode(text_div, 'utf-8') + source_text
 
+    # Translate md_ext to new format
+    md_ext_new = __translate_extensions(md_ext)
     # a Markdown object to do the work
-    md = markdown.Markdown(extensions=md_ext,
-                           output_format='html4')
+    md = markdown.Markdown(extensions=md_ext_new,
+                           output_format='html')
     # convert text to HTML
     mdown = md.convert(source_text)
 
@@ -330,3 +332,23 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
     # use an ID instead of a class for the table of contents
     html = html.replace(u'div class="toc"', 'div id="TOC"')
     return html
+
+def __translate_extensions(md_ext):
+    translations = { 'codehilite' : markdown.extensions.codehilite.CodeHiliteExtension}
+    ret = []
+    for ext in md_ext:
+        pos = ext.find("(")
+        if pos > 0:
+            ename = ext[:pos]
+            opts = ext[pos+1:-1]
+            configs = {}
+            pairs = [x.split("=") for x in opts.split(",")]
+            configs.update([(x.strip(), y.strip()) for (x, y) in pairs])
+            if ename in translations:
+                ret.append(translations[ename](**configs))
+            else:
+                print("Extension mapping for %s ename unknown --skipped" % ename)
+        else:
+            # No options pass through
+            ret.append(ext)
+    return ret

@@ -41,7 +41,9 @@ setup(
         'Programming Language :: Python :: 3.7',
     ),
     #
-    install_requires=['graphviz', 'markdown', 'beautifulsoup4'],
+    # Code highlighting is better with pygments
+    install_requires=['graphviz', 'Markdown>=3.0.0', 'beautifulsoup4',
+                      'pygments'],
     packages=find_packages(exclude=['wwpdb.utils.tests-markdown_wrapper',
                                     'mock-data', 'tests.*']),
     package_data={
