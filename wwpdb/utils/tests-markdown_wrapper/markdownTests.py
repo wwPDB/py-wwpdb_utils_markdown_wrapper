@@ -35,11 +35,15 @@ __email__ = "jwest@rcsb.rutgers.edu"
 __license__ = "Creative Commons Attribution 3.0 Unported"
 __version__ = "V0.01"
 
+import filecmp
 import sys
 import unittest
 import traceback
+import platform
+import os
+import os.path
 
-from render_markdown import *
+from  wwpdb.utils.markdown_wrapper.render_markdown import getSettings, markdown2html, addMermaid
 
 
 class markdownTests(unittest.TestCase):
@@ -47,9 +51,11 @@ class markdownTests(unittest.TestCase):
     def setUp(self):
         self.__lfh = sys.stdout
         self.__verbose = True
-        self.__testFileMermaid = "test-mermaid.md"
-        self.__settingsFile = "markdown_render.ini"
-        self.__outputFile = "export.html"
+        here = os.path.abspath(os.path.dirname(__file__))
+        self.__testFileMermaid = os.path.join(here, "test-mermaid.md")
+        self.__settingsFile = os.path.join(here, "markdown_render.ini")
+        self.__outputFile = os.path.join(here, "export.html")
+        self.__refFile = os.path.join(here, "export.ref")
 
     def tearDown(self):
         pass
@@ -61,17 +67,28 @@ class markdownTests(unittest.TestCase):
                                                  sys._getframe().f_code.co_name))
         try:
             settings = getSettings(self.__settingsFile)
-            md_data = unicode(open(self.__testFileMermaid, 'r').read(), 'utf-8')
+            with open(self.__testFileMermaid, 'r') as fin:
+                md_data_in = fin.read()
+            if sys.version_info[0] == 2:
+                md_data = unicode(md_data_in, 'utf-8')
+            else:
+                md_data = md_data_in
             html = markdown2html(md_data, settings, markdownPath="inline-text")
             html = addMermaid(html)
             #
             with open(self.__outputFile, 'w') as ofh:
-                ofh.write(html.encode('utf-8'))
+                if sys.version_info[0] >= 3:
+                    ofh.write(html)
+                else:
+                    ofh.write(html.encode('utf-8'))
         except:
             traceback.print_exc(file=self.__lfh)
             self.fail()
 
+        self.assertTrue(filecmp.cmp(self.__refFile, self.__outputFile, "Failed to compare file output"))
 
+
+# noinspection PyPep8Naming
 def suiteMermaid():
     suiteSelect = unittest.TestSuite()
     suiteSelect.addTest(markdownTests("testRenderMermaid"))

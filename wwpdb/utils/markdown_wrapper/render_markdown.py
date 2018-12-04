@@ -84,7 +84,8 @@ def getSettings(settingsFilePath):
     settings = {}
     try:
         conf_pat = re.compile(r'^(\S*)\s?=\s?(.*)$')
-        for conf_line in open(settingsFilePath):
+        fin = open(settingsFilePath)
+        for conf_line in fin:
             m = conf_pat.match(conf_line)
             if m:
                 s = m.group(1)
@@ -103,6 +104,7 @@ def getSettings(settingsFilePath):
                         settings[s] = [v]
                 else:
                     settings[s] = v
+        fin.close()
     except:
         pass
 
@@ -241,7 +243,10 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
     # Add Mermaid JS if configured -
     #
     jsMermaid = ''
-    mermaid_js_path = unicode(settings.get('mermaid_js_path', ''))
+    if sys.version_info[0] == 2:
+        mermaid_js_path = unicode(settings.get('mermaid_js_path', ''))
+    else:
+        mermaid_js_path = settings.get('mermaid_js_path', '')
     if len(mermaid_js_path) > 0:
         jsMermaid = '''
         <script src="%s%s"> </script>
@@ -284,11 +289,18 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
     #
     # Add other markdown style details --
     #
-    stPL.append((unicode(settings.get('markdown_screen_css_path', ''), 'utf-8'), 'screen'))
-    stPL.append((unicode(settings.get('markdown_print_css_path', ''), 'utf-8'), 'print'))
-    stPL.append((unicode(settings.get('codehilite_css_path', ''), 'utf-8'), 'screen'))
-    if addMermaidStyle:
-        stPL.append((unicode(settings.get('mermaid_css_path', ''), 'utf-8'), 'screen'))
+    if sys.version_info[0] >= 3:
+        stPL.append((settings.get('markdown_screen_css_path', ''), 'screen'))
+        stPL.append((settings.get('markdown_print_css_path', ''), 'print'))
+        stPL.append((settings.get('codehilite_css_path', ''), 'screen'))
+        if addMermaidStyle:
+            stPL.append((settings.get('mermaid_css_path', ''), 'screen'))
+    else:
+        stPL.append((unicode(settings.get('markdown_screen_css_path', ''), 'utf-8'), 'screen'))
+        stPL.append((unicode(settings.get('markdown_print_css_path', ''), 'utf-8'), 'print'))
+        stPL.append((unicode(settings.get('codehilite_css_path', ''), 'utf-8'), 'screen'))
+        if addMermaidStyle:
+            stPL.append((unicode(settings.get('mermaid_css_path', ''), 'utf-8'), 'screen'))
 
     stL = []
     for st in stPL:
