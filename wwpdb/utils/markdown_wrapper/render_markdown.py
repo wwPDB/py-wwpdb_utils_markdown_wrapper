@@ -218,7 +218,10 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
     if text_version:
         text_href = '%s-%s' % (markdownPath, text_suffix)
         text_div = '<div class="controls" style="float: right"><a href="%s">View Original Text</a></div>' % text_href
-        source_text = unicode(text_div, 'utf-8') + source_text
+        if sys.version_info[0] < 3:
+            source_text = unicode(text_div, 'utf-8') + source_text
+        else:
+            source_text = text_div + source_text
 
     # Translate md_ext to new format
     md_ext_new = __translate_extensions(md_ext)
