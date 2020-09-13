@@ -102,3 +102,9 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# emacs autosave
+*~
+
+# Test output
+wwpdb/utils/tests-markdown_wrapper/test-output

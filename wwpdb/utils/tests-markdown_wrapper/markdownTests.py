@@ -66,25 +66,24 @@ class markdownTests(unittest.TestCase):
         pass
 
     def testRenderMermaid(self):
-        """Test case -  render markdown with mermaid figure
-        """
+        """Test case -  render markdown with mermaid figure"""
         logger.info("Starting")
         try:
             settings = getSettings(self.__settingsFile)
-            with open(self.__testFileMermaid, 'r') as fin:
+            with open(self.__testFileMermaid, "r") as fin:
                 md_data_in = fin.read()
             if sys.version_info[0] == 2:
-                md_data = unicode(md_data_in, 'utf-8')  # noqa: F821 pylint: disable=undefined-variable
+                md_data = unicode(md_data_in, "utf-8")  # noqa: F821 pylint: disable=undefined-variable
             else:
                 md_data = md_data_in
             html = markdown2html(md_data, settings, markdownPath="inline-text")
             html = addMermaid(html)
             #
-            with open(self.__outputFile, 'w') as ofh:
+            with open(self.__outputFile, "w") as ofh:
                 if sys.version_info[0] >= 3:
                     ofh.write(html)
                 else:
-                    ofh.write(html.encode('utf-8'))
+                    ofh.write(html.encode("utf-8"))
         except Exception as e:
             logger.exception("Exception %s", e)
             self.fail()
@@ -99,7 +98,7 @@ def suiteMermaid():
     return suiteSelect
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     #
     mySuite = suiteMermaid()
     unittest.TextTestRunner(verbosity=2).run(mySuite)

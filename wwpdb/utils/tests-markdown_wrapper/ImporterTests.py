@@ -16,5 +16,5 @@ class ImportTests(unittest.TestCase):
         pass  # pylint: disable=unnecessary-pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
