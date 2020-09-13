@@ -28,12 +28,15 @@ import os.path
 import re
 import sys
 import markdown
-import traceback
 #
 from graphviz import Source
 from bs4 import BeautifulSoup
 #
 import markdown.extensions.codehilite
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def parse_metadata(source_text):
     """ Parse Meta-Data and separate from the original text.
@@ -72,9 +75,9 @@ def parse_metadata(source_text):
 def first_heading(source_text):
     """Scan through the text and return the first heading."""
     lines = source_text.split('\n')
-    for l in lines:
-        if l.startswith(u'#'):
-            return l.strip(u'# ')
+    for ln in lines:
+        if ln.startswith(u'#'):
+            return ln.strip(u'# ')
     return None
 
 
@@ -105,7 +108,7 @@ def getSettings(settingsFilePath):
                 else:
                     settings[s] = v
         fin.close()
-    except:
+    except:  # noqa: E722 pylint: disable=bare-except
         pass
 
     return settings
@@ -146,8 +149,8 @@ def addMermaid(html):
                 else:
                     divC.replaceWith(svg_soup)
 
-    except:
-        traceback.print_exc(sys.stderr)
+    except Exception as e:
+        logger.exception("Error in mermaid %s", str(e))
 
     return soup.prettify()
 
@@ -219,7 +222,7 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
         text_href = '%s-%s' % (markdownPath, text_suffix)
         text_div = '<div class="controls" style="float: right"><a href="%s">View Original Text</a></div>' % text_href
         if sys.version_info[0] < 3:
-            source_text = unicode(text_div, 'utf-8') + source_text
+            source_text = unicode(text_div, 'utf-8') + source_text  # noqa: F821 pylint: disable=undefined-variable
         else:
             source_text = text_div + source_text
 
@@ -247,7 +250,7 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
     #
     jsMermaid = ''
     if sys.version_info[0] == 2:
-        mermaid_js_path = unicode(settings.get('mermaid_js_path', ''))
+        mermaid_js_path = unicode(settings.get('mermaid_js_path', ''))  # noqa: F821 pylint: disable=undefined-variable
     else:
         mermaid_js_path = settings.get('mermaid_js_path', '')
     if len(mermaid_js_path) > 0:
@@ -299,11 +302,11 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
         if addMermaidStyle:
             stPL.append((settings.get('mermaid_css_path', ''), 'screen'))
     else:
-        stPL.append((unicode(settings.get('markdown_screen_css_path', ''), 'utf-8'), 'screen'))
-        stPL.append((unicode(settings.get('markdown_print_css_path', ''), 'utf-8'), 'print'))
-        stPL.append((unicode(settings.get('codehilite_css_path', ''), 'utf-8'), 'screen'))
+        stPL.append((unicode(settings.get('markdown_screen_css_path', ''), 'utf-8'), 'screen'))  # noqa: F821 pylint: disable=undefined-variable
+        stPL.append((unicode(settings.get('markdown_print_css_path', ''), 'utf-8'), 'print'))  # noqa: F821 pylint: disable=undefined-variable
+        stPL.append((unicode(settings.get('codehilite_css_path', ''), 'utf-8'), 'screen'))  # noqa: F821 pylint: disable=undefined-variable
         if addMermaidStyle:
-            stPL.append((unicode(settings.get('mermaid_css_path', ''), 'utf-8'), 'screen'))
+            stPL.append((unicode(settings.get('mermaid_css_path', ''), 'utf-8'), 'screen'))  # noqa: F821 pylint: disable=undefined-variable
 
     stL = []
     for st in stPL:
@@ -348,14 +351,15 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
     html = html.replace(u'div class="toc"', 'div id="TOC"')
     return html
 
+
 def __translate_extensions(md_ext):
-    translations = { 'codehilite' : markdown.extensions.codehilite.CodeHiliteExtension}
+    translations = {'codehilite' : markdown.extensions.codehilite.CodeHiliteExtension}
     ret = []
     for ext in md_ext:
         pos = ext.find("(")
         if pos > 0:
             ename = ext[:pos]
-            opts = ext[pos+1:-1]
+            opts = ext[pos + 1:-1]
             configs = {}
             pairs = [x.split("=") for x in opts.split(",")]
             configs.update([(x.strip(), y.strip()) for (x, y) in pairs])

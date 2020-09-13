@@ -38,23 +38,28 @@ __version__ = "V0.01"
 import filecmp
 import sys
 import unittest
-import traceback
 import platform
 import os
 import os.path
 
-from  wwpdb.utils.markdown_wrapper.render_markdown import getSettings, markdown2html, addMermaid
+from wwpdb.utils.markdown_wrapper.render_markdown import getSettings, markdown2html, addMermaid
+
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger()
 
 
 class markdownTests(unittest.TestCase):
-
     def setUp(self):
-        self.__lfh = sys.stdout
-        self.__verbose = True
         here = os.path.abspath(os.path.dirname(__file__))
+        testoutput = os.path.join(here, "test-output", platform.python_version())
+        if not os.path.exists(testoutput):  # pragma: no cover
+            os.makedirs(testoutput)
+
         self.__testFileMermaid = os.path.join(here, "test-mermaid.md")
         self.__settingsFile = os.path.join(here, "markdown_render.ini")
-        self.__outputFile = os.path.join(here, "export.html")
+        self.__outputFile = os.path.join(testoutput, "export.html")
         self.__refFile = os.path.join(here, "export.ref")
 
     def tearDown(self):
@@ -63,14 +68,13 @@ class markdownTests(unittest.TestCase):
     def testRenderMermaid(self):
         """Test case -  render markdown with mermaid figure
         """
-        self.__lfh.write("\nStarting %s %s\n" % (self.__class__.__name__,
-                                                 sys._getframe().f_code.co_name))
+        logger.info("Starting")
         try:
             settings = getSettings(self.__settingsFile)
             with open(self.__testFileMermaid, 'r') as fin:
                 md_data_in = fin.read()
             if sys.version_info[0] == 2:
-                md_data = unicode(md_data_in, 'utf-8')
+                md_data = unicode(md_data_in, 'utf-8')  # noqa: F821 pylint: disable=undefined-variable
             else:
                 md_data = md_data_in
             html = markdown2html(md_data, settings, markdownPath="inline-text")
@@ -81,8 +85,8 @@ class markdownTests(unittest.TestCase):
                     ofh.write(html)
                 else:
                     ofh.write(html.encode('utf-8'))
-        except:
-            traceback.print_exc(file=self.__lfh)
+        except Exception as e:
+            logger.exception("Exception %s", e)
             self.fail()
 
         self.assertTrue(filecmp.cmp(self.__refFile, self.__outputFile, "Failed to compare file output"))
