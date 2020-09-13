@@ -42,12 +42,30 @@ import platform
 import os
 import os.path
 
+try:
+    from unittest import mock
+except ImportError:
+    import mock
+import graphviz
+
 from wwpdb.utils.markdown_wrapper.render_markdown import getSettings, markdown2html, addMermaid
 
 import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
+
+orig_backend_run = graphviz.backend.run
+run_under_mock = os.environ.get("MOCKEXE")
+
+
+def simple_graphviz_render(cmd, input=None, capture_output=False, check=False, encoding=None, quiet=False, **kwargs):  # pylint: disable=redefined-builtin
+    # logger.error("Graphviz cmd is %s input is %s capture %s check is %s encoding is %s kwargs is %s", cmd, input, capture_output, check, encoding, kwargs)
+    logger.debug("Graphviz cmd is %s", cmd)
+    if run_under_mock:
+        return b"<!---- mock svg --->", ""
+    else:
+        return orig_backend_run(cmd, input=input, capture_output=capture_output, check=check, encoding=encoding, quiet=quiet, **kwargs)  # ignore kwargs
 
 
 class markdownTests(unittest.TestCase):
@@ -60,12 +78,16 @@ class markdownTests(unittest.TestCase):
         self.__testFileMermaid = os.path.join(here, "test-mermaid.md")
         self.__settingsFile = os.path.join(here, "markdown_render.ini")
         self.__outputFile = os.path.join(testoutput, "export.html")
-        self.__refFile = os.path.join(here, "export.ref")
+        if run_under_mock:
+            self.__refFile = os.path.join(here, "export.ref")
+        else:
+            self.__refFile = os.path.join(here, "exportmock.ref")
 
     def tearDown(self):
         pass
 
-    def testRenderMermaid(self):
+    @mock.patch("graphviz.backend.run", side_effect=simple_graphviz_render)
+    def testRenderMermaid(self, mfunc):  # pylint: disable=unused-argument
         """Test case -  render markdown with mermaid figure"""
         logger.info("Starting")
         try:

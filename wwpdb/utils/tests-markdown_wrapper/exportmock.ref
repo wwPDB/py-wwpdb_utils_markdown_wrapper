@@ -1,0 +1,917 @@
+<html>
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-type"/>
+  <link charset="utf-8" href="/assets/styles/markdown/markdown-screen.css" media="screen" rel="stylesheet" type="text/css"/>
+  <link charset="utf-8" href="/assets/styles/markdown/markdown-print.css" media="print" rel="stylesheet" type="text/css"/>
+  <link charset="utf-8" href="/assets/styles/markdown/pygments/github.css" media="screen" rel="stylesheet" type="text/css"/>
+  <link charset="utf-8" href="/assets/js/mermaid/mermaid.forest.css" media="screen" rel="stylesheet" type="text/css"/>
+  <title>
+   Table of content
+  </title>
+  <script charset="utf-8" type="text/javascript">
+   function toggleVisibility(theButton, targetName) {
+              var target = document.getElementById(targetName);
+              if ( target.style.opacity == '0' ) {
+                // show
+                target.style.left = '0px';
+                target.style.position = 'relative';
+                target.style.opacity = '1';
+                theButton.innerHTML = "Hide Table of Contents";
+              } else {
+                // hide
+                target.style.left = '-4000px';
+                target.style.position = 'absolute';
+                target.style.opacity = '0';
+                theButton.innerHTML = "Show Table of Contents";
+              }
+              return true;
+            }
+  </script>
+  <script src="/assets/js/mermaid/mermaid.js">
+  </script>
+  #
+  <script charset="utf-8" type="text/javascript">
+   mermaid.initialize({
+                flowchart:{
+                    htmlLabels: true,
+                    useMaxWidth: false
+                  },
+                sequenceDiagram: {
+                    diagramMarginX:10,
+                    diagramMarginY:10,
+                    boxTextMargin:10,
+                    noteMargin:10,
+                    messageMargin:35,
+                    mirrorActors:true,
+                    // Height of actor boxes
+                    width:300,
+                    height:40,
+                    useMaxWidth: false
+                },
+               ganttConfig: {
+                titleTopMargin:25,
+                barHeight:20,
+                barGap:4,
+                topPadding:5,
+                sidePadding:75,
+                gridLineStartPadding:35,
+                fontSize:11,
+                numberSectionStyles:3
+              },
+              cloneCssStyles:true,
+              startOnLoad:true
+            });
+  </script>
+ </head>
+ <body>
+  <p class="controls" id="showhide" onclick="toggleVisibility(this, 'TOC');">
+   Hide Table of Contents
+  </p>
+  <div id="TOC">
+   <ul>
+    <li>
+     <a href="#example-of-super-markdown-file">
+      Example of Super Markdown file
+     </a>
+     <ul>
+      <li>
+       <a href="#table-of-content">
+        Table of content
+       </a>
+      </li>
+      <li>
+       <a href="#introduction">
+        Introduction
+       </a>
+      </li>
+      <li>
+       <a href="#a-text-with-list-example">
+        A text with list &amp; example
+       </a>
+      </li>
+      <li>
+       <a href="#mermaid-sequence-diagram">
+        Mermaid sequence diagram
+       </a>
+      </li>
+      <li>
+       <a href="#mermaid-graph">
+        Mermaid graph
+       </a>
+      </li>
+      <li>
+       <a href="#dotgraph">
+        DotGraph
+       </a>
+       <ul>
+        <li>
+         <a href="#simple-example">
+          Simple example
+         </a>
+         <ul>
+          <li>
+           <a href="#a-complex-example">
+            a Complex example
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </div>
+  <table id="metadata">
+  </table>
+  <h1 id="example-of-super-markdown-file">
+   Example of Super Markdown file
+  </h1>
+  <h2 id="table-of-content">
+   Table of content
+  </h2>
+  <hr/>
+  <div id="TOC">
+   <ul>
+    <li>
+     <a href="#example-of-super-markdown-file">
+      Example of Super Markdown file
+     </a>
+     <ul>
+      <li>
+       <a href="#table-of-content">
+        Table of content
+       </a>
+      </li>
+      <li>
+       <a href="#introduction">
+        Introduction
+       </a>
+      </li>
+      <li>
+       <a href="#a-text-with-list-example">
+        A text with list &amp; example
+       </a>
+      </li>
+      <li>
+       <a href="#mermaid-sequence-diagram">
+        Mermaid sequence diagram
+       </a>
+      </li>
+      <li>
+       <a href="#mermaid-graph">
+        Mermaid graph
+       </a>
+      </li>
+      <li>
+       <a href="#dotgraph">
+        DotGraph
+       </a>
+       <ul>
+        <li>
+         <a href="#simple-example">
+          Simple example
+         </a>
+         <ul>
+          <li>
+           <a href="#a-complex-example">
+            a Complex example
+           </a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </li>
+     </ul>
+    </li>
+   </ul>
+  </div>
+  <h2 id="introduction">
+   Introduction
+  </h2>
+  <p>
+   Super Markdown can generate Standalone Html file from markdown.
+  </p>
+  <h2 id="a-text-with-list-example">
+   A text with list &amp; example
+  </h2>
+  <p>
+   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>
+  <p>
+   <strong>
+    Bullet
+   </strong>
+   list:
+  </p>
+  <ul>
+   <li>
+    apples
+   </li>
+   <li>
+    oranges
+   </li>
+   <li>
+    pears
+   </li>
+  </ul>
+  <p>
+   <strong>
+    Numbered
+   </strong>
+   list:
+  </p>
+  <ol>
+   <li>
+    apples
+   </li>
+   <li>
+    oranges
+   </li>
+   <li>
+    pears
+   </li>
+  </ol>
+  <p>
+   <strong>
+    Task
+   </strong>
+   list:
+  </p>
+  <ul>
+   <li>
+    [ ] foo
+   </li>
+   <li>
+    [x] bar
+   </li>
+   <li>
+    [ ] baz
+   </li>
+  </ul>
+  <h2 id="mermaid-sequence-diagram">
+   Mermaid sequence diagram
+  </h2>
+  <code class="mermaid">
+   sequenceDiagram
+            participant OneDep Deposition UI
+            participant Workflow Database
+            participant Workflow Engine
+            participant Format Check WF
+            participant Format Conversion WF
+            participant Validation WF
+            participant OnSubmit WF
+
+            OneDep Deposition UI-&gt;&gt;Workflow Database:Workflow request
+            Workflow Database--&gt;&gt;OneDep Deposition UI:Workflow completion status
+
+            Workflow Database-&gt;&gt;Workflow Engine:Monitor workflow requests
+            Workflow Engine--&gt;&gt;Workflow Database:Return completion status
+
+
+            loop For each uploaded dataset model
+            Workflow Engine-&gt;&gt;Format Check WF:Invoke format check workflow
+            Format Check WF--&gt;&gt;Workflow Engine:Return completion status
+
+            Workflow Engine-&gt;&gt;Format Conversion WF:Invoke format conversion workflow
+            Format Conversion WF--&gt;&gt;Workflow Engine:Return completion status
+
+            Workflow Engine-&gt;&gt;Validation WF:Invoke validation report workflow
+            Validation WF--&gt;&gt;Workflow Engine:Return completion status
+            end
+            Workflow Engine-&gt;&gt;OnSubmit WF:Invoke submit to annotation workflow
+            OnSubmit WF--&gt;&gt;Workflow Engine:Return completion status
+  </code>
+  <h2 id="mermaid-graph">
+   Mermaid graph
+  </h2>
+  <code class="mermaid">
+   graph TD;
+
+subgraph Store Wizzard
+    c_wiz1(cabinet)
+    c_wiz2(cabinet)
+    c_wiz3(cabinet)
+    c_wiz4(cabinet)
+end
+
+subgraph Configurateur
+    l_conf(Linéaire)
+end
+
+l_conf --&gt; c_wiz1
+l_conf --&gt; c_wiz2
+l_conf --&gt; c_wiz3
+l_conf --&gt; c_wiz4
+  </code>
+  <code class="mermaid">
+   graph TD;
+
+subgraph Store Wizzard
+    c_wiz1(cabinet)
+    c_wiz2(cabinet)
+    c_wiz3(cabinet)
+    c_wiz4(cabinet)
+end
+
+subgraph Configurateur
+    l_conf(Linéaire)
+end
+
+l_conf --&gt; c_wiz1
+l_conf --&gt; c_wiz2
+l_conf --&gt; c_wiz3
+l_conf --&gt; c_wiz4
+  </code>
+  <h2 id="dotgraph">
+   DotGraph
+  </h2>
+  <h3 id="simple-example">
+   Simple example
+  </h3>
+  <p>
+   a very short example find on
+   <a href="http://graphviz.readthedocs.io/en/latest/manual.html">
+    Graphviz manual
+   </a>
+  </p>
+  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <!-- Generated by graphviz version 2.44.1 (20200629.0846)
+ -->
+  <!-- Title: pet&#45;shop Pages: 1 -->
+  <svg height="44pt" viewbox="0.00 0.00 152.00 44.00" width="152pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 40)">
+    <title>
+     pet-shop
+    </title>
+    <polygon fill="white" points="-4,4 -4,-40 148,-40 148,4 -4,4" stroke="transparent">
+    </polygon>
+    <!-- parrot -->
+    <g class="node" id="node1">
+     <title>
+      parrot
+     </title>
+     <text font-family="Times,serif" font-size="14.00" text-anchor="middle" x="27" y="-14.3">
+      parrot
+     </text>
+    </g>
+    <!-- dead -->
+    <g class="node" id="node2">
+     <title>
+      dead
+     </title>
+     <text font-family="Times,serif" font-size="14.00" text-anchor="middle" x="117" y="-14.3">
+      dead
+     </text>
+    </g>
+    <!-- parrot&#45;&gt;dead -->
+    <g class="edge" id="edge1">
+     <title>
+      parrot-&gt;dead
+     </title>
+     <path d="M54.4,-18C59.32,-18 64.59,-18 69.9,-18" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="89.92,-18 69.92,-27 79.92,-18 69.92,-18 69.92,-18 69.92,-18 79.92,-18 69.92,-9 89.92,-18 89.92,-18" stroke="black">
+     </polygon>
+    </g>
+   </g>
+  </svg>
+  <p>
+   and another example:
+  </p>
+  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <!-- Generated by graphviz version 2.44.1 (20200629.0846)
+ -->
+  <!-- Pages: 1 -->
+  <svg height="116pt" viewbox="0.00 0.00 388.33 116.00" width="388pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 112)">
+    <polygon fill="white" points="-4,4 -4,-112 384.33,-112 384.33,4 -4,4" stroke="transparent">
+    </polygon>
+    <!-- A -->
+    <g class="node" id="node1">
+     <title>
+      A
+     </title>
+     <ellipse cx="189.34" cy="-90" fill="none" rx="53.89" ry="18" stroke="black">
+     </ellipse>
+     <text font-family="Times,serif" font-size="14.00" text-anchor="middle" x="189.34" y="-86.3">
+      King Arthur
+     </text>
+    </g>
+    <!-- B -->
+    <g class="node" id="node2">
+     <title>
+      B
+     </title>
+     <ellipse cx="90.34" cy="-18" fill="none" rx="90.18" ry="18" stroke="black">
+     </ellipse>
+     <text font-family="Times,serif" font-size="14.00" text-anchor="middle" x="90.34" y="-14.3">
+      Sir Bedevere the Wise
+     </text>
+    </g>
+    <!-- A&#45;&gt;B -->
+    <g class="edge" id="edge1">
+     <title>
+      A-&gt;B
+     </title>
+     <path d="M167.37,-73.46C154.04,-64.04 136.8,-51.85 122.01,-41.39" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="123.82,-38.38 113.63,-35.47 119.78,-44.1 123.82,-38.38" stroke="black">
+     </polygon>
+    </g>
+    <!-- L -->
+    <g class="node" id="node3">
+     <title>
+      L
+     </title>
+     <ellipse cx="289.34" cy="-18" fill="none" rx="90.98" ry="18" stroke="black">
+     </ellipse>
+     <text font-family="Times,serif" font-size="14.00" text-anchor="middle" x="289.34" y="-14.3">
+      Sir Lancelot the Brave
+     </text>
+    </g>
+    <!-- A&#45;&gt;L -->
+    <g class="edge" id="edge2">
+     <title>
+      A-&gt;L
+     </title>
+     <path d="M211.54,-73.46C225,-64.04 242.42,-51.85 257.36,-41.39" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="259.63,-44.07 265.82,-35.47 255.62,-38.33 259.63,-44.07" stroke="black">
+     </polygon>
+    </g>
+    <!-- B&#45;&gt;L -->
+    <g class="edge" id="edge3">
+     <title>
+      B-&gt;L
+     </title>
+     <path d="M180.9,-18C183.34,-18 185.79,-18 188.23,-18" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="188.27,-21.5 198.27,-18 188.27,-14.5 188.27,-21.5" stroke="black">
+     </polygon>
+    </g>
+   </g>
+  </svg>
+  <h4 id="a-complex-example">
+   a Complex example
+  </h4>
+  <p>
+   Here a more complex example find on
+   <a href="http://www.graphviz.org/content/Genetic_Programming">
+    Graphviz Gallery
+   </a>
+  </p>
+  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+  <!-- Generated by graphviz version 2.44.1 (20200629.0846)
+ -->
+  <!-- Title: g Pages: 1 -->
+  <svg height="560pt" viewbox="0.00 0.00 1124.00 560.00" width="1124pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <g class="graph" id="graph0" transform="scale(1 1) rotate(0) translate(4 556)">
+    <title>
+     g
+    </title>
+    <polygon fill="white" points="-4,4 -4,-556 1120,-556 1120,4 -4,4" stroke="transparent">
+    </polygon>
+    <!-- state0 -->
+    <g class="node" id="node1">
+     <title>
+      state0
+     </title>
+     <path d="M12,-75C12,-75 165,-75 165,-75 171,-75 177,-81 177,-87 177,-87 177,-234 177,-234 177,-240 171,-246 165,-246 165,-246 12,-246 12,-246 6,-246 0,-240 0,-234 0,-234 0,-87 0,-87 0,-81 6,-75 12,-75" fill="white" stroke="black" stroke-width="5">
+     </path>
+     <polygon fill="white" points="8,-79 8,-242 169,-242 169,-79 8,-79" stroke="transparent">
+     </polygon>
+     <polygon fill="black" points="10.5,-218.5 10.5,-239.5 167.5,-239.5 167.5,-218.5 10.5,-218.5" stroke="transparent">
+     </polygon>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="55.5" y="-225.3">
+      State #0
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="13.5" y="-202.3">
+      (0) s -&gt; •e $
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="13.5" y="-179.3">
+      (1) e -&gt; •l '=' r
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="13.5" y="-156.3">
+      (2) e -&gt; •r
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="13.5" y="-133.3">
+      (3) l -&gt; •'*' r
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="13.5" y="-110.3">
+      (4) l -&gt; •'n'
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="13.5" y="-87.3">
+      (5) r -&gt; •l
+     </text>
+    </g>
+    <!-- state1 -->
+    <g class="node" id="node2">
+     <title>
+      state1
+     </title>
+     <path d="M719.5,-251C719.5,-251 856.5,-251 856.5,-251 862.5,-251 868.5,-257 868.5,-263 868.5,-263 868.5,-364 868.5,-364 868.5,-370 862.5,-376 856.5,-376 856.5,-376 719.5,-376 719.5,-376 713.5,-376 707.5,-370 707.5,-364 707.5,-364 707.5,-263 707.5,-263 707.5,-257 713.5,-251 719.5,-251" fill="white" stroke="black">
+     </path>
+     <polygon fill="white" points="715.5,-255 715.5,-372 860.5,-372 860.5,-255 715.5,-255" stroke="transparent">
+     </polygon>
+     <polygon fill="black" points="718,-348.5 718,-369.5 859,-369.5 859,-348.5 718,-348.5" stroke="transparent">
+     </polygon>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="755" y="-355.3">
+      State #1
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="721" y="-332.3">
+      (3) l -&gt; •'*' r
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="721" y="-309.3">
+      (3) l -&gt; '*' •r
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="721" y="-286.3">
+      (4) l -&gt; •'n'
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="721" y="-263.3">
+      (5) r -&gt; •l
+     </text>
+    </g>
+    <!-- state0&#45;&gt;state1 -->
+    <g class="edge" id="edge4">
+     <title>
+      state0-&gt;state1
+     </title>
+     <path d="M177.27,-172.57C327.97,-193.4 621.99,-234.55 644,-241.5 662.06,-247.2 680.63,-254.96 698.17,-263.29" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="696.71,-266.48 707.23,-267.69 699.76,-260.18 696.71,-266.48" stroke="black">
+     </polygon>
+     <text fill="#474747" font-family="Times,serif" font-size="14.00" text-anchor="middle" x="442.5" y="-214.3">
+      '*'
+     </text>
+    </g>
+    <!-- state2 -->
+    <g class="node" id="node3">
+     <title>
+      state2
+     </title>
+     <path d="M952.5,-189.5C952.5,-189.5 1095.5,-189.5 1095.5,-189.5 1101.5,-189.5 1107.5,-195.5 1107.5,-201.5 1107.5,-201.5 1107.5,-233.5 1107.5,-233.5 1107.5,-239.5 1101.5,-245.5 1095.5,-245.5 1095.5,-245.5 952.5,-245.5 952.5,-245.5 946.5,-245.5 940.5,-239.5 940.5,-233.5 940.5,-233.5 940.5,-201.5 940.5,-201.5 940.5,-195.5 946.5,-189.5 952.5,-189.5" fill="white" stroke="black">
+     </path>
+     <polygon fill="white" points="948.5,-193.5 948.5,-241.5 1099.5,-241.5 1099.5,-193.5 948.5,-193.5" stroke="transparent">
+     </polygon>
+     <polygon fill="black" points="951,-218.5 951,-239.5 1098,-239.5 1098,-218.5 951,-218.5" stroke="transparent">
+     </polygon>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="991" y="-225.3">
+      State #2
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="954" y="-202.3">
+      (4) l -&gt; 'n' •
+     </text>
+     <polygon fill="grey" points="1075,-195.5 1075,-216.5 1098,-216.5 1098,-195.5 1075,-195.5" stroke="transparent">
+     </polygon>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="1078" y="-202.3">
+      =$
+     </text>
+    </g>
+    <!-- state0&#45;&gt;state2 -->
+    <g class="edge" id="edge5">
+     <title>
+      state0-&gt;state2
+     </title>
+     <path d="M177.17,-160.5C220.46,-160.5 273.47,-160.5 321,-160.5 321,-160.5 321,-160.5 789,-160.5 839.24,-160.5 893.87,-173.06 937.71,-186.39" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="936.87,-189.79 947.46,-189.42 938.95,-183.11 936.87,-189.79" stroke="black">
+     </polygon>
+     <text fill="#474747" font-family="Times,serif" font-size="14.00" text-anchor="middle" x="555.5" y="-164.3">
+      'n'
+     </text>
+    </g>
+    <!-- state5 -->
+    <g class="node" id="node6">
+     <title>
+      state5
+     </title>
+     <path d="M262,-75.5C262,-75.5 382,-75.5 382,-75.5 388,-75.5 394,-81.5 394,-87.5 394,-87.5 394,-119.5 394,-119.5 394,-125.5 388,-131.5 382,-131.5 382,-131.5 262,-131.5 262,-131.5 256,-131.5 250,-125.5 250,-119.5 250,-119.5 250,-87.5 250,-87.5 250,-81.5 256,-75.5 262,-75.5" fill="black" stroke="black">
+     </path>
+     <polygon fill="black" points="258,-79.5 258,-127.5 386,-127.5 386,-79.5 258,-79.5" stroke="transparent">
+     </polygon>
+     <polygon fill="black" points="260,-104.5 260,-125.5 384,-125.5 384,-104.5 260,-104.5" stroke="transparent">
+     </polygon>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="288.5" y="-111.3">
+      State #5
+     </text>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="263" y="-88.3">
+      (0) s -&gt; e •$
+     </text>
+    </g>
+    <!-- state0&#45;&gt;state5 -->
+    <g class="edge" id="edge1">
+     <title>
+      state0-&gt;state5
+     </title>
+     <path d="M177.16,-120.75C183.13,-118.78 189.11,-117 195,-115.5 209.19,-111.89 224.53,-109.35 239.45,-107.56" fill="none" stroke="black" stroke-width="5">
+     </path>
+     <polygon fill="black" points="240.24,-111.88 249.7,-106.44 239.29,-103.18 240.24,-111.88" stroke="black" stroke-width="5">
+     </polygon>
+     <text font-family="Times,serif" font-size="28.00" text-anchor="middle" x="201.5" y="-124.1">
+      e
+     </text>
+    </g>
+    <!-- state6 -->
+    <g class="node" id="node7">
+     <title>
+      state6
+     </title>
+     <path d="M238,-247C238,-247 406,-247 406,-247 412,-247 418,-253 418,-259 418,-259 418,-314 418,-314 418,-320 412,-326 406,-326 406,-326 238,-326 238,-326 232,-326 226,-320 226,-314 226,-314 226,-259 226,-259 226,-253 232,-247 238,-247" fill="white" stroke="black">
+     </path>
+     <polygon fill="white" points="234,-251 234,-322 410,-322 410,-251 234,-251" stroke="transparent">
+     </polygon>
+     <polygon fill="black" points="236,-298.5 236,-319.5 408,-319.5 408,-298.5 236,-298.5" stroke="transparent">
+     </polygon>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="288.5" y="-305.3">
+      State #6
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="239" y="-282.3">
+      (1) e -&gt; l •'=' r
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="239" y="-259.3">
+      (5) r -&gt; l •
+     </text>
+     <polygon fill="grey" points="393,-252.5 393,-273.5 408,-273.5 408,-252.5 393,-252.5" stroke="transparent">
+     </polygon>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="396" y="-259.3">
+      $
+     </text>
+    </g>
+    <!-- state0&#45;&gt;state6 -->
+    <g class="edge" id="edge2">
+     <title>
+      state0-&gt;state6
+     </title>
+     <path d="M177.02,-208.14C197.43,-219.24 219.09,-231.03 239.24,-242" fill="none" stroke="black" stroke-width="5">
+     </path>
+     <polygon fill="black" points="237.2,-245.87 248.08,-246.81 241.39,-238.19 237.2,-245.87" stroke="black" stroke-width="5">
+     </polygon>
+     <text font-family="Times,serif" font-size="28.00" text-anchor="middle" x="201.5" y="-232.1">
+      l
+     </text>
+    </g>
+    <!-- state9 -->
+    <g class="node" id="node10">
+     <title>
+      state9
+     </title>
+     <path d="M262.5,-0.5C262.5,-0.5 381.5,-0.5 381.5,-0.5 387.5,-0.5 393.5,-6.5 393.5,-12.5 393.5,-12.5 393.5,-44.5 393.5,-44.5 393.5,-50.5 387.5,-56.5 381.5,-56.5 381.5,-56.5 262.5,-56.5 262.5,-56.5 256.5,-56.5 250.5,-50.5 250.5,-44.5 250.5,-44.5 250.5,-12.5 250.5,-12.5 250.5,-6.5 256.5,-0.5 262.5,-0.5" fill="white" stroke="black">
+     </path>
+     <polygon fill="white" points="258.5,-4.5 258.5,-52.5 385.5,-52.5 385.5,-4.5 258.5,-4.5" stroke="transparent">
+     </polygon>
+     <polygon fill="black" points="261,-29.5 261,-50.5 384,-50.5 384,-29.5 261,-29.5" stroke="transparent">
+     </polygon>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="289" y="-36.3">
+      State #9
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="264" y="-13.3">
+      (2) e -&gt; r •
+     </text>
+     <polygon fill="grey" points="369,-6.5 369,-27.5 384,-27.5 384,-6.5 369,-6.5" stroke="transparent">
+     </polygon>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="372" y="-13.3">
+      $
+     </text>
+    </g>
+    <!-- state0&#45;&gt;state9 -->
+    <g class="edge" id="edge3">
+     <title>
+      state0-&gt;state9
+     </title>
+     <path d="M177.1,-88.56C183.03,-84.63 189.03,-80.91 195,-77.5 209.26,-69.36 225.14,-62 240.69,-55.62" fill="none" stroke="black" stroke-width="5">
+     </path>
+     <polygon fill="black" points="242.65,-59.55 250.31,-51.77 239.4,-51.42 242.65,-59.55" stroke="black" stroke-width="5">
+     </polygon>
+     <text font-family="Times,serif" font-size="28.00" text-anchor="middle" x="201.5" y="-86.1">
+      r
+     </text>
+    </g>
+    <!-- state1&#45;&gt;state1 -->
+    <g class="edge" id="edge6">
+     <title>
+      state1-&gt;state1
+     </title>
+     <path d="M767,-376.33C769.87,-387.06 776.87,-394.5 788,-394.5 795.48,-394.5 801.09,-391.14 804.84,-385.68" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="808.14,-386.89 809,-376.33 801.74,-384.05 808.14,-386.89" stroke="black">
+     </polygon>
+     <text fill="#474747" font-family="Times,serif" font-size="14.00" text-anchor="middle" x="788" y="-398.3">
+      '*'
+     </text>
+    </g>
+    <!-- state1&#45;&gt;state2 -->
+    <g class="edge" id="edge8">
+     <title>
+      state1-&gt;state2
+     </title>
+     <path d="M868.55,-280.86C893.34,-270.69 920.63,-259.5 945.3,-249.38" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="946.68,-252.59 954.61,-245.56 944.03,-246.12 946.68,-252.59" stroke="black">
+     </polygon>
+     <text fill="#474747" font-family="Times,serif" font-size="14.00" text-anchor="middle" x="908" y="-269.3">
+      'n'
+     </text>
+    </g>
+    <!-- state3 -->
+    <g class="node" id="node4">
+     <title>
+      state3
+     </title>
+     <path d="M960.5,-370.5C960.5,-370.5 1087.5,-370.5 1087.5,-370.5 1093.5,-370.5 1099.5,-376.5 1099.5,-382.5 1099.5,-382.5 1099.5,-414.5 1099.5,-414.5 1099.5,-420.5 1093.5,-426.5 1087.5,-426.5 1087.5,-426.5 960.5,-426.5 960.5,-426.5 954.5,-426.5 948.5,-420.5 948.5,-414.5 948.5,-414.5 948.5,-382.5 948.5,-382.5 948.5,-376.5 954.5,-370.5 960.5,-370.5" fill="white" stroke="black">
+     </path>
+     <polygon fill="white" points="956.5,-374.5 956.5,-422.5 1091.5,-422.5 1091.5,-374.5 956.5,-374.5" stroke="transparent">
+     </polygon>
+     <polygon fill="black" points="959,-399.5 959,-420.5 1090,-420.5 1090,-399.5 959,-399.5" stroke="transparent">
+     </polygon>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="991" y="-406.3">
+      State #3
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="962" y="-383.3">
+      (5) r -&gt; l •
+     </text>
+     <polygon fill="grey" points="1067,-376.5 1067,-397.5 1090,-397.5 1090,-376.5 1067,-376.5" stroke="transparent">
+     </polygon>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="1070" y="-383.3">
+      =$
+     </text>
+    </g>
+    <!-- state1&#45;&gt;state3 -->
+    <g class="edge" id="edge9">
+     <title>
+      state1-&gt;state3
+     </title>
+     <path d="M868.55,-342.4C891.16,-350.61 915.85,-359.58 938.72,-367.89" fill="none" stroke="black" stroke-width="5">
+     </path>
+     <polygon fill="black" points="937.51,-372.1 948.41,-371.4 940.5,-363.88 937.51,-372.1" stroke="black" stroke-width="5">
+     </polygon>
+     <text font-family="Times,serif" font-size="28.00" text-anchor="middle" x="908" y="-367.1">
+      l
+     </text>
+    </g>
+    <!-- state4 -->
+    <g class="node" id="node5">
+     <title>
+      state4
+     </title>
+     <path d="M944,-285.5C944,-285.5 1104,-285.5 1104,-285.5 1110,-285.5 1116,-291.5 1116,-297.5 1116,-297.5 1116,-329.5 1116,-329.5 1116,-335.5 1110,-341.5 1104,-341.5 1104,-341.5 944,-341.5 944,-341.5 938,-341.5 932,-335.5 932,-329.5 932,-329.5 932,-297.5 932,-297.5 932,-291.5 938,-285.5 944,-285.5" fill="white" stroke="black">
+     </path>
+     <polygon fill="white" points="940,-289.5 940,-337.5 1108,-337.5 1108,-289.5 940,-289.5" stroke="transparent">
+     </polygon>
+     <polygon fill="black" points="942,-314.5 942,-335.5 1106,-335.5 1106,-314.5 942,-314.5" stroke="transparent">
+     </polygon>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="990.5" y="-321.3">
+      State #4
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="945" y="-298.3">
+      (3) l -&gt; '*' r •
+     </text>
+     <polygon fill="grey" points="1083,-291.5 1083,-312.5 1106,-312.5 1106,-291.5 1083,-291.5" stroke="transparent">
+     </polygon>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="1086" y="-298.3">
+      =$
+     </text>
+    </g>
+    <!-- state1&#45;&gt;state4 -->
+    <g class="edge" id="edge7">
+     <title>
+      state1-&gt;state4
+     </title>
+     <path d="M868.55,-313.5C885.6,-313.5 903.85,-313.5 921.6,-313.5" fill="none" stroke="black" stroke-width="5">
+     </path>
+     <polygon fill="black" points="921.99,-317.88 931.99,-313.5 921.99,-309.13 921.99,-317.88" stroke="black" stroke-width="5">
+     </polygon>
+     <text font-family="Times,serif" font-size="28.00" text-anchor="middle" x="908" y="-322.1">
+      r
+     </text>
+    </g>
+    <!-- state7 -->
+    <g class="node" id="node8">
+     <title>
+      state7
+     </title>
+     <path d="M479,-251C479,-251 632,-251 632,-251 638,-251 644,-257 644,-263 644,-263 644,-364 644,-364 644,-370 638,-376 632,-376 632,-376 479,-376 479,-376 473,-376 467,-370 467,-364 467,-364 467,-263 467,-263 467,-257 473,-251 479,-251" fill="white" stroke="black">
+     </path>
+     <polygon fill="white" points="475,-255 475,-372 636,-372 636,-255 475,-255" stroke="transparent">
+     </polygon>
+     <polygon fill="black" points="477.5,-348.5 477.5,-369.5 634.5,-369.5 634.5,-348.5 477.5,-348.5" stroke="transparent">
+     </polygon>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="522.5" y="-355.3">
+      State #7
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="480.5" y="-332.3">
+      (1) e -&gt; l '=' •r
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="480.5" y="-309.3">
+      (3) l -&gt; •'*' r
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="480.5" y="-286.3">
+      (4) l -&gt; •'n'
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="480.5" y="-263.3">
+      (5) r -&gt; •l
+     </text>
+    </g>
+    <!-- state6&#45;&gt;state7 -->
+    <g class="edge" id="edge10">
+     <title>
+      state6-&gt;state7
+     </title>
+     <path d="M418.16,-297.6C430.86,-299.08 443.89,-300.6 456.63,-302.09" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="456.43,-305.59 466.77,-303.27 457.24,-298.63 456.43,-305.59" stroke="black">
+     </polygon>
+     <text fill="#474747" font-family="Times,serif" font-size="14.00" text-anchor="middle" x="442.5" y="-304.3">
+      '='
+     </text>
+    </g>
+    <!-- state7&#45;&gt;state1 -->
+    <g class="edge" id="edge12">
+     <title>
+      state7-&gt;state1
+     </title>
+     <path d="M644.3,-313.5C661.64,-313.5 679.85,-313.5 697.25,-313.5" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="697.39,-317 707.39,-313.5 697.39,-310 697.39,-317" stroke="black">
+     </polygon>
+     <text fill="#474747" font-family="Times,serif" font-size="14.00" text-anchor="middle" x="668" y="-317.3">
+      '*'
+     </text>
+    </g>
+    <!-- state7&#45;&gt;state2 -->
+    <g class="edge" id="edge13">
+     <title>
+      state7-&gt;state2
+     </title>
+     <path d="M638.64,-250.93C655.49,-240.99 673.7,-232.14 692,-226.5 769.73,-202.54 862.64,-202.32 930.22,-206.91" fill="none" stroke="black">
+     </path>
+     <polygon fill="black" points="930.19,-210.42 940.42,-207.65 930.7,-203.44 930.19,-210.42" stroke="black">
+     </polygon>
+     <text fill="#474747" font-family="Times,serif" font-size="14.00" text-anchor="middle" x="788" y="-230.3">
+      'n'
+     </text>
+    </g>
+    <!-- state7&#45;&gt;state3 -->
+    <g class="edge" id="edge14">
+     <title>
+      state7-&gt;state3
+     </title>
+     <path d="M619.5,-376.1C640.77,-393.23 665.81,-409.54 692,-418.5 772.34,-445.99 869.98,-435.16 938.32,-421.05" fill="none" stroke="black" stroke-width="5">
+     </path>
+     <polygon fill="black" points="939.31,-425.31 948.18,-418.94 937.49,-416.75 939.31,-425.31" stroke="black" stroke-width="5">
+     </polygon>
+     <text font-family="Times,serif" font-size="28.00" text-anchor="middle" x="788" y="-444.1">
+      l
+     </text>
+    </g>
+    <!-- state8 -->
+    <g class="node" id="node9">
+     <title>
+      state8
+     </title>
+     <path d="M704,-495.5C704,-495.5 872,-495.5 872,-495.5 878,-495.5 884,-501.5 884,-507.5 884,-507.5 884,-539.5 884,-539.5 884,-545.5 878,-551.5 872,-551.5 872,-551.5 704,-551.5 704,-551.5 698,-551.5 692,-545.5 692,-539.5 692,-539.5 692,-507.5 692,-507.5 692,-501.5 698,-495.5 704,-495.5" fill="white" stroke="black">
+     </path>
+     <polygon fill="white" points="700,-499.5 700,-547.5 876,-547.5 876,-499.5 700,-499.5" stroke="transparent">
+     </polygon>
+     <polygon fill="black" points="702,-524.5 702,-545.5 874,-545.5 874,-524.5 702,-524.5" stroke="transparent">
+     </polygon>
+     <text fill="white" font-family="Courier New" font-size="14.00" text-anchor="start" x="754.5" y="-531.3">
+      State #8
+     </text>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="705" y="-508.3">
+      (1) e -&gt; l '=' r •
+     </text>
+     <polygon fill="grey" points="859,-501.5 859,-522.5 874,-522.5 874,-501.5 859,-501.5" stroke="transparent">
+     </polygon>
+     <text font-family="Courier New" font-size="14.00" text-anchor="start" x="862" y="-508.3">
+      $
+     </text>
+    </g>
+    <!-- state7&#45;&gt;state8 -->
+    <g class="edge" id="edge11">
+     <title>
+      state7-&gt;state8
+     </title>
+     <path d="M594.91,-376.06C613.32,-403.35 636.83,-434.7 662,-459.5 673.59,-470.92 677.86,-472.44 692,-480.5 698.27,-484.07 704.9,-487.58 711.61,-490.95" fill="none" stroke="black" stroke-width="5">
+     </path>
+     <polygon fill="black" points="709.89,-494.98 720.79,-495.45 713.74,-487.12 709.89,-494.98" stroke="black" stroke-width="5">
+     </polygon>
+     <text font-family="Times,serif" font-size="28.00" text-anchor="middle" x="668" y="-478.1">
+      r
+     </text>
+    </g>
+   </g>
+  </svg>
+ </body>
+</html>
