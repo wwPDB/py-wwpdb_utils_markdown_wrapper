@@ -7,17 +7,14 @@
 
 import unittest
 
-from wwpdb.utils.markdown_wrapper.render_markdown import markdown2html, addMermaid, getSettings
+from wwpdb.utils.markdown_wrapper.render_markdown import markdown2html, addMermaid, getSettings  # noqa: F401 pylint: disable=unused-import
 
 
 class ImportTests(unittest.TestCase):
-    def setUp(self):
-        pass
-
     def testInstantiate(self):
         """Tests simple instantiation"""
-        pass
+        pass  # pylint: disable=unnecessary-pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

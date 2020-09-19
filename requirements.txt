@@ -1,0 +1,6 @@
+graphviz
+Markdown~=3.0
+beautifulsoup4
+pygments
+# For testing w/o graphviz installed
+mock
