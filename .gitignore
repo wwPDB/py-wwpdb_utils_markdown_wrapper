@@ -107,4 +107,4 @@ venv.bak/
 *~
 
 # Test output
-wwpdb/utils/tests-markdown_wrapper/test-output
+tests/test-output
