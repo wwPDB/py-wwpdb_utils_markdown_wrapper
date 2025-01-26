@@ -23,19 +23,16 @@
 #                         problem for sequence diagrams.
 #    Jan 5, 2017  jdw     add support for Gnatt charts
 #
+import logging
 import os
 import os.path
 import re
 import sys
+
 import markdown
-
-#
-from graphviz import Source
-from bs4 import BeautifulSoup
-
-#
 import markdown.extensions.codehilite
-import logging
+from bs4 import BeautifulSoup
+from graphviz import Source  # type: ignore[import-untyped]
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +50,7 @@ def parse_metadata(source_text):
     META_MORE_RE = re.compile(r"^[ ]{4,}(?P<value>.*)")
     while True:
         line = lines.pop(0)
-        if line.strip() == "":
+        if line.strip() == "":  # noqa: PLC1901
             break  # blank line - done
         m1 = META_RE.match(line)
         if m1:
@@ -78,8 +75,8 @@ def first_heading(source_text):
     """Scan through the text and return the first heading."""
     lines = source_text.split("\n")
     for ln in lines:
-        if ln.startswith(u"#"):
-            return ln.strip(u"# ")
+        if ln.startswith("#"):
+            return ln.strip("# ")
     return None
 
 
@@ -88,35 +85,34 @@ def getSettings(settingsFilePath):
     settings = {}
     try:
         conf_pat = re.compile(r"^(\S*)\s?=\s?(.*)$")
-        fin = open(settingsFilePath)
-        for conf_line in fin:
-            m = conf_pat.match(conf_line)
-            if m:
-                s = m.group(1)
-                v = m.group(2).strip("\"'")
-                # convert various strings to their boolean value
-                if v.lower() == "yes" or v.lower() == "on" or v == "1":
-                    v = True
-                elif v.lower() == "no" or v.lower() == "off" or v == "0":
-                    v = False
-                # support PHP-style array values
-                if s.endswith("[]"):
-                    s = s[:-2]
-                    if s in settings:
-                        settings[s].append(v)
+        with open(settingsFilePath) as fin:
+            for conf_line in fin:
+                m = conf_pat.match(conf_line)
+                if m:
+                    s = m.group(1)
+                    v = m.group(2).strip("\"'")
+                    # convert various strings to their boolean value
+                    if v.lower() == "yes" or v.lower() == "on" or v == "1":
+                        v = True
+                    elif v.lower() == "no" or v.lower() == "off" or v == "0":
+                        v = False
+                    # support PHP-style array values
+                    if s.endswith("[]"):
+                        s = s[:-2]
+                        if s in settings:
+                            settings[s].append(v)
+                        else:
+                            settings[s] = [v]
                     else:
-                        settings[s] = [v]
-                else:
-                    settings[s] = v
-        fin.close()
+                        settings[s] = v
     except:  # noqa: E722 pylint: disable=bare-except
-        pass
+        logger.exception("Failure to parse config")
 
     return settings
 
 
 def renderDotgraph(dotText):
-    """Render dot graph as SVG - """
+    """Render dot graph as SVG -"""
     svgGraph = Source(dotText, format="svg")
     return svgGraph.pipe().decode("utf-8")
 
@@ -126,18 +122,17 @@ def addMermaid(html):
     soup = BeautifulSoup(html, "html.parser")
     try:
         for divC in soup.find_all("div", attrs={"class": "codehilite"}):
-            if len(divC.pre.find_all(text=re.compile("%% mermaid figure"))) > 0:
+            if len(divC.pre.find_all(string=re.compile("%% mermaid figure"))) > 0:
                 divC.pre.span.extract()
                 tt = divC.pre.string
                 divC.pre.extract()
                 divC.string = tt.replace("%% mermaid figure", "")
                 divC.attrs["class"] = "mermaid"
                 divC.name = "code"
-                #
                 if preWrapFlag:
                     wrapper = soup.new_tag("pre")
                     divC.wrap(wrapper)
-            elif len(divC.pre.find_all(text=re.compile("// dotgraph figure"))) > 0:
+            elif len(divC.pre.find_all(string=re.compile("// dotgraph figure"))) > 0:
                 divC.pre.span.extract()
                 dotText = divC.pre.string
                 divC.pre.extract()
@@ -160,7 +155,6 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
     """Render input markdown source text as HTML.   Control options stored in input settings dictionary.
     Text is labeled as 'markdownPath'  ...  Get extensions from config file --
     """
-    #
     _debug = False
     # read some prefs
     include_toc = bool(int(settings.get("toc", 0)))
@@ -184,51 +178,55 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
         # respect the per-document pref for table of contents
         if "toc" in metadata:
             toc = metadata["toc"][0].lower()
-            if toc == "on" or toc == "yes" or toc == "1":
+            if toc in {"on", "yes", "1"}:
                 include_toc = True
-            elif toc == "off" or toc == "no" or toc == "0":
+            elif toc in {"off", "no", "0"}:
                 include_toc = False
             del metadata["toc"]
         # display metadata?
         if meta_behavior == "table":
             meta_html_table = '<table id="metadata">\n'
-            for (name, values) in metadata.items():
+            for name, values in metadata.items():
+                vals = values
                 if link_pattern is not None and name in link_attrs:
                     newval = []
                     for target in values:
                         link = link_pattern.replace("%k", name).replace("%v", target)
                         newval.append('<a href="%s">%s</a>' % (link, target))
-                    values = newval
+                    vals = newval
                 table_row = """<tr>
                                 <td class="mda">%s</td>
                                 <td class="mdv">%s</td>
                                 </tr>
                             """ % (
                     name,
-                    "<br>".join(values),
+                    "<br>".join(vals),
                 )
-                meta_html_table = meta_html_table + table_row
-            meta_html_table = meta_html_table + "</table>\n"
+                meta_html_table += table_row
+            meta_html_table += "</table>\n"
             source_text = meta_html_table + source_text
     if _debug:
         sys.stderr.write("Document metadata %r\n" % metadata)
-    toc_display = u""
+    toc_display = ""
     if include_toc:
         # make sure the required extension is loaded
         md_ext.append("toc")
         # molest the source
-        source_text = u'<p id="showhide" class="controls" onClick="toggleVisibility(this, \'TOC\');">Hide Table of Contents</p>\n\n[TOC]\n\n' + source_text
+        source_text = (
+            '<p id="showhide" class="controls" onClick="toggleVisibility(this, \'TOC\');">Hide Table of Contents</p>\n\n[TOC]\n\n'
+            + source_text
+        )
         # set initial state for table of contents
         if toc_hidden:
-            toc_display = u" onLoad=\"javascript:toggleVisibility(document.getElementById('showhide'), 'TOC');\""
+            toc_display = " onLoad=\"javascript:toggleVisibility(document.getElementById('showhide'), 'TOC');\""
 
     if text_version:
         text_href = "%s-%s" % (markdownPath, text_suffix)
         text_div = '<div class="controls" style="float: right"><a href="%s">View Original Text</a></div>' % text_href
-        if sys.version_info[0] < 3:
-            source_text = unicode(text_div, "utf-8") + source_text  # noqa: F821 pylint: disable=undefined-variable
-        else:
-            source_text = text_div + source_text
+        # if sys.version_info[0] < 3:
+        #     source_text = unicode(text_div, "utf-8") + source_text  # pylint: disable=undefined-variable
+        # else:
+        source_text = text_div + source_text
 
     # Translate md_ext to new format
     md_ext_new = __translate_extensions(md_ext)
@@ -245,17 +243,16 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
         heading = first_heading(source_text)
         if heading is not None:
             title = heading
-    #
     stPL = []
     addMermaidStyle = False
     #
     # Add Mermaid JS if configured -
     #
     jsMermaid = ""
-    if sys.version_info[0] == 2:
-        mermaid_js_path = unicode(settings.get("mermaid_js_path", ""))  # noqa: F821 pylint: disable=undefined-variable
-    else:
-        mermaid_js_path = settings.get("mermaid_js_path", "")
+    # if sys.version_info[0] == 2:
+    #    mermaid_js_path = unicode(settings.get("mermaid_js_path", ""))  # pylint: disable=undefined-variable
+    # else:
+    mermaid_js_path = settings.get("mermaid_js_path", "")
     if len(mermaid_js_path) > 0:
         jsMermaid = """
         <script src="%s%s"> </script>
@@ -301,25 +298,27 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
     #
     # Add other markdown style details --
     #
-    if sys.version_info[0] >= 3:
-        stPL.append((settings.get("markdown_screen_css_path", ""), "screen"))
-        stPL.append((settings.get("markdown_print_css_path", ""), "print"))
-        stPL.append((settings.get("codehilite_css_path", ""), "screen"))
-        if addMermaidStyle:
-            stPL.append((settings.get("mermaid_css_path", ""), "screen"))
-    else:
-        stPL.append((unicode(settings.get("markdown_screen_css_path", ""), "utf-8"), "screen"))  # noqa: F821 pylint: disable=undefined-variable
-        stPL.append((unicode(settings.get("markdown_print_css_path", ""), "utf-8"), "print"))  # noqa: F821 pylint: disable=undefined-variable
-        stPL.append((unicode(settings.get("codehilite_css_path", ""), "utf-8"), "screen"))  # noqa: F821 pylint: disable=undefined-variable
-        if addMermaidStyle:
-            stPL.append((unicode(settings.get("mermaid_css_path", ""), "utf-8"), "screen"))  # noqa: F821 pylint: disable=undefined-variable
+    # if sys.version_info[0] >= 3:
+    stPL.append((settings.get("markdown_screen_css_path", ""), "screen"))
+    stPL.append((settings.get("markdown_print_css_path", ""), "print"))
+    stPL.append((settings.get("codehilite_css_path", ""), "screen"))
+    if addMermaidStyle:
+        stPL.append((settings.get("mermaid_css_path", ""), "screen"))
+    # else:
+    #    stPL.append((unicode(settings.get("markdown_screen_css_path", ""), "utf-8"), "screen"))  # pylint: disable=undefined-variable
+    #    stPL.append((unicode(settings.get("markdown_print_css_path", ""), "utf-8"), "print"))  # pylint: disable=undefined-variable
+    #    stPL.append((unicode(settings.get("codehilite_css_path", ""), "utf-8"), "screen"))  # pylint: disable=undefined-variable
+    #    if addMermaidStyle:
+    #        stPL.append((unicode(settings.get("mermaid_css_path", ""), "utf-8"), "screen"))  # pylint: disable=undefined-variable
 
     stL = []
     for st in stPL:
         if len(st[0]) > 0:
-            stL.append('<link rel="stylesheet" href="%s%s" type="text/css" media="%s" charset="utf-8"></link>' % (cdn_url, st[0], st[1]))
-    #
-    html = u"""<html>
+            stL.append(
+                '<link rel="stylesheet" href="%s%s" type="text/css" media="%s" charset="utf-8"></link>'
+                % (cdn_url, st[0], st[1])
+            )
+    html = """<html>
         <head>
           <meta http-equiv="Content-type" content="text/html; charset=utf-8">
           %s
@@ -360,7 +359,7 @@ def markdown2html(source_text, settings, markdownPath="inline-text"):
     )
 
     # use an ID instead of a class for the table of contents
-    html = html.replace(u'div class="toc"', 'div id="TOC"')
+    html = html.replace('div class="toc"', 'div id="TOC"')
     return html
 
 
@@ -378,7 +377,7 @@ def __translate_extensions(md_ext):
             if ename in translations:
                 ret.append(translations[ename](**configs))
             else:
-                print("Extension mapping for %s ename unknown --skipped" % ename)
+                logger.error("Extension mapping for %s ename unknown --skipped", ename)
         else:
             # No options pass through
             ret.append(ext)
